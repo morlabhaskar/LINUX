@@ -1,3 +1,12 @@
+/*
+int stat(const char *pathname, struct stat *buf);
+Parameters
+pathname – Name or path of the file
+buf – Pointer to a struct stat where file info is stored
+Return Value :
+0 → success
+-1 → failure
+*/
 // struct stat {
 //     dev_t     st_dev;     /* ID of device containing file */
 //     ino_t     st_ino;     /* inode number */
@@ -13,6 +22,7 @@
 //     time_t    st_mtime;   /* time of last modification */
 //     time_t    st_ctime;   /* time of last status change */
 // };
+
 #include<stdio.h>
 #include<stdlib.h>
 #include<sys/stat.h>
