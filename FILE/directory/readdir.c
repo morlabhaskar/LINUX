@@ -8,7 +8,7 @@ End of directory / Error → NULL
 */
 #include <stdio.h>
 #include <dirent.h>
-
+//gcc readdir.c -o myls
 int main(){
     DIR *dp;
     struct dirent *entry;
@@ -18,7 +18,7 @@ int main(){
         return 1;
     }
     while ((entry = readdir(dp)) != NULL){
-        printf("%s\n", entry->d_name);
+        printf("%s  ", entry->d_name);
     }
     closedir(dp);
     return 0;

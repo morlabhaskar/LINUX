@@ -12,6 +12,7 @@ Return Value :
 #include<unistd.h>
 #include<fcntl.h>
 #include<string.h>
+//a.out  filename
 int main(int argc,char *argv[]){
     int fd,n;
     char buf[100];
