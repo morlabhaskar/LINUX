@@ -21,7 +21,7 @@ int main(int argc,char *argv[]){
             stat(entry->d_name,&st);
             if(S_ISDIR(st.st_mode))
                 printf("\033[1;34m%s\033[0m  ",entry->d_name);//blue dir
-            else if(st.st_mode &&S_IXUSR)
+            else if(st.st_mode & S_IXUSR)
                 printf("\033[1;32m%s\033[0m  ",entry->d_name);//green exe
             else
                 printf("%s  ",entry->d_name);//default regular
@@ -88,7 +88,6 @@ int main(int argc,char *argv[]){
                     printf("  \033[1;32m%s\033[0m  ",entry->d_name);//green exe
                 else
                     printf("  %s",entry->d_name);//default regular
-
             }
             if(flag) printf("\n");
         }
