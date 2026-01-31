@@ -15,6 +15,7 @@ int main(){
     char arr[]="Bhaskar";
     char buf[20];
     //create a pipe
+    // pipe(fd);
     if(pipe(fd)==-1){
         perror("pipe");
         return 0;

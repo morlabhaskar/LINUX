@@ -6,11 +6,17 @@
 #include<sys/stat.h>
 #include<pwd.h>
 #include<grp.h>
+struct fileinfo{
+    char name[256];
+    int size;
+};
 //./myls -l
 int main(int argc,char *argv[]){
     DIR *fd;
     struct dirent *entry;
     struct stat st;
+    struct fileinfo files[1024];
+    int cnt=0;
     fd=opendir(".");
     if(fd==NULL){
         perror("opendir");
@@ -37,6 +43,21 @@ int main(int argc,char *argv[]){
             if(entry->d_name[0]=='.'){
                 printf("%s  ",entry->d_name);
             }
+        }
+        printf("\n");
+    }else if((argc==2)&&(strcmp("-S",argv[1])==0)){
+        while((entry=readdir(fd))!=NULL){
+            if(entry->d_name[0]=='.'){
+                continue;//skip hidden files
+            }
+            if(stat(entry->d_name,&st)==0){
+                strcpy(files[cnt].name,entry->d_name);
+                files[cnt].size=st.st_size;
+                cnt++;
+            }
+        }
+        for(int i=0;i<cnt;i++){
+            printf("%s  ",files[i].name);
         }
         printf("\n");
     }else if((argc==2)&&(strcmp("-l",argv[1])==0)){
