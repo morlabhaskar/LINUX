@@ -17,7 +17,7 @@ int main(){
         perror("opendir");
         return 1;
     }
-    while ((entry = readdir(dp)) != NULL){
+    while((entry = readdir(dp)) != NULL){
         printf("%s  ", entry->d_name);
     }
     closedir(dp);
