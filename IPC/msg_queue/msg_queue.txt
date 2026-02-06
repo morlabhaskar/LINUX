@@ -1,0 +1,24 @@
+A message queue is an Inter-Process Communication (IPC) mechanism that 
+allows processes to exchange data in the form of messages.
+Why Message Queue?
+✔ Sender and receiver do not need to run at the same time
+✔ Asynchronous communication
+✔ Messages can have priority
+✔ No shared memory → safe communication
+Basic Working
+Process A creates a message queue
+Process A sends a message
+Process B receives the message
+Message is removed from the queue after reading
+Function	Purpose
+msgget()	Create / access queue
+msgsnd()	Send message
+msgrcv()	Receive message
+msgctl()	Control / delete queue
+struct msgbuf {
+    long mtype;     // message type (must be > 0)
+    char mtext[100]; // message data
+};
+two types :
+1)id based -> no need any system call direct id pass
+2)key based -> key is generated using ftok() system call
