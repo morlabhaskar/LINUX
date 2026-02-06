@@ -39,8 +39,7 @@ int main(){
         close(fd[1]);
         execlp("ls", "ls", NULL);  // execute ls and write to ls output in pipe
         perror("execlp");//if execlp() failed
-    }
-    else{
+    }else{
         // Parent process → executes "wc -l"
         close(fd[1]);              // close write end
         dup2(fd[0], STDIN_FILENO);  // redirect stdin from pipe
