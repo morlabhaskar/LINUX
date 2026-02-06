@@ -1,19 +1,3 @@
-/*
-int msgget(key_t key, int msgflg); → Create / Access Message Queue
-key	   → Unique key to identify message queue
-msgflg → Permission + control flags
-Success → message queue ID (msgid)
-Failure → -1
-
-int msgsnd(int msgid, const void *msgp, size_t msgsz, int msgflg); → Send Message to Queue
-Parameter	Meaning
-msgid	    Message queue ID
-msgp	    Pointer to message structure
-msgsz	    Size of message data (excluding mtype)
-msgflg  	Control flags
-Success → 0
-Failure → -1
-*/
 #include<stdio.h>
 #include<unistd.h>
 #include<sys/ipc.h>

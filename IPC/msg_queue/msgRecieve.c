@@ -1,31 +1,3 @@
-/*
-ssize_t msgrcv(int msgid, void *msgp, size_t msgsz,long msgtyp, int msgflg); → Receive Message from Queue
-Parameter	Meaning
-msgid	    Message queue ID
-msgp	    Buffer to store received message
-msgsz	    Max size of message
-msgtyp	    Message type to receive
-msgflg	    Control flags
-msgtyp Behavior
-Value	Meaning
->0	    Receive specific message type
-0	    Receive first message
-<0	    Receive lowest type ≤ value
-Success → number of bytes received
-Failure → -1
-
-int msgctl(int msgid, int cmd, struct msqid_ds *buf); → Control / Delete Message Queue
-Parameter	Meaning
-msgid	    Message queue ID
-cmd	        Control command
-buf	        Queue info structure
-Command	    Purpose
-IPC_RMID	Remove message queue
-IPC_STAT	Get queue status
-IPC_SET	    Set queue parameters
-Success → 0
-Failure → -1
-*/
 #include<stdio.h>
 #include<unistd.h>
 #include<sys/ipc.h>
