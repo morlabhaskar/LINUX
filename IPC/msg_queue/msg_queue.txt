@@ -19,6 +19,10 @@ struct msgbuf {
     long mtype;     // message type (must be > 0)
     char mtext[100]; // message data
 };
+msgtyp value	    Behavior
+    >0	            Receive specific type
+    0	            Receive first message(FIFO)
+    <0	            Receive lowest type ≤ value
 two types :
 1)id based -> no need any system call direct id pass
 2)key based -> key is generated using ftok() system call
@@ -30,6 +34,7 @@ key	   → Unique key to identify message queue
 msgflg → Permission + control flags
 Success → message queue ID (msgid)
 Failure → -1
+
 
 int msgsnd(int msgid, const void *msgp, size_t msgsz, int msgflg); → Send Message to Queue
 Parameter	Meaning

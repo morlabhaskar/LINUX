@@ -1,0 +1,16 @@
+Shared Memory is the fastest Inter-Process Communication (IPC) mechanism in Linux.
+It allows multiple processes to access the same memory region to exchange data without kernel.
+Types of Shared Memory in Linux
+System V Shared Memory (shmget, shmat)
+POSIX Shared Memory (shm_open, mmap)
+👉 Below is the commonly taught System V Shared Memory (used in OS & Embedded syllabi).
+System V Shared Memory – Working Steps
+Create a shared memory segment
+Attach it to process address space
+Read / Write data
+Detach shared memory
+Destroy shared memory
+
+$ipcs -m     # list shared memory
+$ipcrm -m <shmid>   # delete shared memory
+
