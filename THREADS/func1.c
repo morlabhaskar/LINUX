@@ -7,8 +7,8 @@ void print(int a){
 }
 int main(){
     void (*fptr)(int);//declaration
-    // fptr=print;//assaign function address
-    fptr=&print;//also valid
+    fptr=print;//assaign function address
+    // fptr=&print;//also valid
 
     // *fptr(10);//function call
     (*fptr)(10);//also valid
