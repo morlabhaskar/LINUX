@@ -10,7 +10,7 @@ void *f1(void *p){
 	pthread_mutex_lock(&m1);
 	printf("in thread1...var=%d\n",var);
 	++var;
-	sleep(14);
+	// sleep(14);
 	++var;
 	printf("in thread1...var=%d\n",var);
 	pthread_mutex_unlock(&m1);
@@ -25,7 +25,7 @@ void *f2(void *p){
 	pthread_mutex_lock(&m1);
 	printf("in thread2...var=%d\n",var);
 	var+=100;
-	sleep(12);
+	// sleep(12);
 	var+=100;
 	printf("in thread2...var=%d\n",var);
 	pthread_mutex_unlock(&m1);

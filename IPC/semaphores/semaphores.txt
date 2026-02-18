@@ -1,0 +1,52 @@
+A semaphore in Linux is a synchronization mechanism used to control access to shared resources in 
+multithreaded or multiprocess environments. It prevents race conditions and ensures data consistency.
+
+Why Semaphores Are Needed :
+When multiple processes or threads access a shared resource 
+(file, memory, device, variable), problems like data corruption can occur.
+
+Semaphores solve this by:
+Allowing controlled access
+Blocking processes when the resource is busy
+Waking them when the resource becomes available
+
+Types of Semaphores in Linux
+1️⃣ Binary Semaphore (Mutex)
+Value: 
+0 → Resource busy
+1 → Resource free
+Used for mutual exclusion
+Only one process/thread can enter the critical section
+2️⃣ Counting Semaphore
+Value: 0 to N
+Used when multiple identical resources exist
+Controls access to a resource pool
+Example:
+Printer pool with 3 printers → semaphore value = 3
+
+Execution Flow :
+Semaphore initialized to 1
+Two threads start
+One thread enters critical section
+Other thread blocks at sem_wait()
+First thread exits critical section and calls sem_post()
+Blocked thread resumes and enters
+
+int sem_init(sem_t *sem, int pshared, unsigned int value);
+sem_init() initializes an unnamed semaphore for thread or process synchronization.
+sem	    Pointer to semaphore object
+pshared	0 → shared between threads
+non-zero → shared between processes
+value	Initial semaphore value
+
+int sem_wait(sem_t *sem);
+Decrements semaphore value
+If value becomes negative, calling thread blocks
+Puts thread into sleep state
+
+int sem_post(sem_t *sem);
+Increments semaphore value
+Wakes up one waiting thread, if any
+
+int sem_destroy(sem_t *sem);
+sem_destroy() removes an unnamed semaphore from memory.

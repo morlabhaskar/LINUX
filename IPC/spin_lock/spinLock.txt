@@ -1,0 +1,30 @@
+A spinlock is a low-level synchronization mechanism used in multithreading to 
+protect a critical section.Instead of putting a thread to sleep when the lock is busy, 
+the thread keeps looping (spinning) until the lock becomes available.
+
+How a Spinlock Works :
+A thread tries to acquire the lock.
+If the lock is free, the thread acquires it and enters the critical section.
+If the lock is busy, the thread keeps checking repeatedly (busy waiting).
+Once the lock is released, one spinning thread acquires it.
+👉 The thread never sleeps while waiting.
+
+int pthread_spin_init(pthread_spinlock_t *lock, int pshared);
+lock → pointer to spinlock variable
+pshared
+PTHREAD_PROCESS_PRIVATE → used within same process (most common)
+PTHREAD_PROCESS_SHARED → shared between processes (shared memory)
+
+int pthread_spin_lock(pthread_spinlock_t *lock);
+Acquires the spinlock.
+If lock is free → thread acquires it
+If lock is busy → thread spins (busy wait) until released
+❗ Thread does NOT sleep
+
+int pthread_spin_unlock(pthread_spinlock_t *lock);
+Sets lock state to unlocked
+Allows another spinning thread to acquire it
+
+int pthread_spin_destroy(pthread_spinlock_t *lock);
+Spinlock must not be locked when destroying
+Using destroyed lock → undefined behavior
