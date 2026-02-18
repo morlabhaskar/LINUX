@@ -23,14 +23,14 @@ int main(){
     }
     if(ret){
         int ret1 = fork();
-        if (ret1 == -1){
+        if(ret1 == -1){
             perror("fork1");
             exit(0);
         }
-        if (ret1 == 0)
-            Child2Code();
-        else
+        if(ret1)
             ParentCode();
+        else
+            Child2Code();
     }
     else
         Child1Code();

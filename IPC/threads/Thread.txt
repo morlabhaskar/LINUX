@@ -2,16 +2,17 @@ In Linux, a thread is the smallest unit of execution within a process.
 A process can have multiple threads, and all threads of a process share the same resources.
 Memory Sharing in Threads
 All threads share:
-Code segment
-Global variables
-Heap
-File descriptors
+    Code segment
+    Global variables
+    Heap
+    File descriptors
 Each thread has:
-Own stack
-Own registers
-Own thread ID (TID)
+    Own stack
+    Own registers
+    Own thread ID (TID)
 getpid();   // returns process ID
 gettid();   // returns thread ID
+
 int pthread_create(
     pthread_t *thread,
     const pthread_attr_t *attr,
@@ -23,3 +24,7 @@ Parameter	Value	    Meaning
 NULL	    Default	    Default thread attributes
 myThread	Function	Thread start function
 NULL	    Argument	No argument passed
+
+void pthread_exit(void *retval);
+
+int pthread_join(pthread_t thread,void **retval);
