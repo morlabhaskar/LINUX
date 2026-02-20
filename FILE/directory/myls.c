@@ -60,6 +60,8 @@ int main(int argc,char *argv[]){
             printf("%s  ",files[i].name);
         }
         printf("\n");
+    }else if((argc==2)&&(strcmp("-t",argv[1])==0)){
+        //sort by time
     }else if((argc==2)&&(strcmp("-l",argv[1])==0)){
         long total=0;
         while((entry=readdir(fd))!=NULL){
