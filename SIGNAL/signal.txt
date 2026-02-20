@@ -1,0 +1,15 @@
+A signal in Linux is a software interrupt sent to a process or thread to notify it that an event has occurred.
+➡️ It is a lightweight Inter-Process Communication (IPC) mechanism.
+
+Signal	   Number	Meaning
+SIGINT	   2	    Interrupt from keyboard (Ctrl+C)
+SIGKILL	   9	    Forcefully kill process (cannot be caught)
+SIGSEGV	   11	    Segmentation fault
+SIGPIPE	   13	    Broken pipe
+SIGALRM	   14	    Timer expired
+SIGTERM	   15	    Graceful termination
+SIGCHLD	   17	    Child process terminated
+SIGCONT	   18	    Resume stopped process
+SIGSTOP	   19	    Stop process (cannot be caught)
+
+

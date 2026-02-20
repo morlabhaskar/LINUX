@@ -1,3 +1,13 @@
+/*
+struct dirent {
+    ino_t          d_ino;       /* Inode number 
+    off_t          d_off;       /* Not an offset; see below 
+    unsigned short d_reclen;    /* Length of this record 
+    unsigned char  d_type;      /* Type of file; not supported by all filesystem types 
+    char           d_name[256]; /* Null-terminated filename 
+};
+
+*/
 #include<stdio.h>
 #include<unistd.h>
 #include<string.h>
@@ -10,6 +20,17 @@ struct fileinfo{
     char name[256];
     int size;
 };
+void sort(struct fileinfo file[],int len){
+    for(int i=0;i<len-1;i++){
+        for(int j=0;j<len-i-1;j++){
+            if(strcmp(file[j].name,file.[j+1].name)>0){
+                struct fileinfo temp=file[j];
+                file[j]=file[j+1];
+                file[j+1]=temp;
+            }
+        }
+    }
+}
 //./myls -l
 int main(int argc,char *argv[]){
     DIR *fd;
@@ -22,30 +43,47 @@ int main(int argc,char *argv[]){
         perror("opendir");
         return 0;
     }
+    //ls
     if(argc==1){
         while((entry=readdir(fd))!=NULL){
-            stat(entry->d_name,&st);
+            if(!((strcmp(entry->d_name,".")==0)||(strcmp(entry->d_name,"..")==0))){
+                if(stat(entry->d_name,&st)==0){
+                    strcpy(files[cnt].name,entry->d_name);
+                    files[cnt].size=entry->d_type;
+                    cnt++;
+                }
+            }
+        }
+        sort(files,cnt);
+        for(int i=0;i<cnt;i++){
+            stat(files[i].name,&st);
             if(S_ISDIR(st.st_mode))
-                printf("\033[1;34m%s\033[0m  ",entry->d_name);//blue dir
+                printf("\033[1;34m%s\033[0m  ",files[i].name);//blue dir
             else if(st.st_mode & S_IXUSR)
-                printf("\033[1;32m%s\033[0m  ",entry->d_name);//green exe
+                printf("\033[1;32m%s\033[0m  ",files[i].name);//green exe
             else
-                printf("%s  ",entry->d_name);//default regular
+                printf("%s  ",files[i].name);//default regular
         }
         printf("\n");
-    }else if((argc==2)&&(strcmp("-i",argv[1])==0)){
+    }
+    //ls -i
+    else if((argc==2)&&(strcmp("-i",argv[1])==0)){
         while((entry=readdir(fd))!=NULL){
             printf("%lu %s   ",entry->d_ino,entry->d_name);
         }
         printf("\n");
-    }else if((argc==2)&&(strcmp("-a",argv[1])==0)){
+    }
+    //ls -a
+    else if((argc==2)&&(strcmp("-a",argv[1])==0)){
         while((entry=readdir(fd))!=NULL){
             if(entry->d_name[0]=='.'){
                 printf("%s  ",entry->d_name);
             }
         }
         printf("\n");
-    }else if((argc==2)&&(strcmp("-S",argv[1])==0)){
+    }
+    //ls -S
+    else if((argc==2)&&(strcmp("-S",argv[1])==0)){
         while((entry=readdir(fd))!=NULL){
             if(entry->d_name[0]=='.'){
                 continue;//skip hidden files
@@ -60,9 +98,13 @@ int main(int argc,char *argv[]){
             printf("%s  ",files[i].name);
         }
         printf("\n");
-    }else if((argc==2)&&(strcmp("-t",argv[1])==0)){
+    }
+    //ls -t
+    else if((argc==2)&&(strcmp("-t",argv[1])==0)){
         //sort by time
-    }else if((argc==2)&&(strcmp("-l",argv[1])==0)){
+    }
+    //ls -l
+    else if((argc==2)&&(strcmp("-l",argv[1])==0)){
         long total=0;
         while((entry=readdir(fd))!=NULL){
             int flag=0;
@@ -118,3 +160,4 @@ int main(int argc,char *argv[]){
     closedir(fd);
     return 0;
 }
+
