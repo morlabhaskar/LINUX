@@ -11,3 +11,4 @@ int main(){
         sleep(2);
     }
 }
+//kill -SIGUSR1 4321
