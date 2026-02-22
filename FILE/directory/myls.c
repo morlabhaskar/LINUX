@@ -23,7 +23,7 @@ struct fileinfo{
 void sort(struct fileinfo file[],int len){
     for(int i=0;i<len-1;i++){
         for(int j=0;j<len-i-1;j++){
-            if(strcmp(file[j].name,file.[j+1].name)>0){
+            if(strcmp(file[j].name,file[j+1].name)>0){
                 struct fileinfo temp=file[j];
                 file[j]=file[j+1];
                 file[j+1]=temp;
@@ -66,6 +66,7 @@ int main(int argc,char *argv[]){
         }
         printf("\n");
     }
+
     //ls -i
     else if((argc==2)&&(strcmp("-i",argv[1])==0)){
         while((entry=readdir(fd))!=NULL){

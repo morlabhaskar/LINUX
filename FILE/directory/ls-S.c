@@ -1,3 +1,4 @@
+//ls -S
 #include<stdio.h>
 #include<unistd.h>
 #include<sys/stat.h>
@@ -15,17 +16,6 @@ void sort(struct fileinfo file[],int cnt){
                 struct fileinfo temp=file[j];
                 file[j]=file[j+1];
                 file[j+1]=temp;
-            }
-        }
-    }
-}
-void sort_by_time(struct fileinfo file[],int cnt){
-    for(int i=0;i<cnt-1;i++){
-        for(int j=0;j<cnt-i-1;j++){
-            if(file[j].time < file[j+1].time){
-                struct fileinfo temp=file[j];
-                file[j] = file[j+1];
-                file[j+1] = temp;
             }
         }
     }
@@ -55,46 +45,17 @@ int main(int argc,char *argv[]){
         }
         printf("\n");
     }
-    else if((argc==2)&&(strcmp(argv[1],"-i")==0)){
-        while(entry=readdir(fd)){
-            if(!((strcmp(entry->d_name,".")==0)||(strcmp(entry->d_name,"..")==0))){
-                printf("%lu %s  ",entry->d_ino,entry->d_name);
-            }
-        }
-        printf("\n");
-    }
     else if((argc==2)&&(strcmp(argv[1],"-S")==0)){
         while(entry=readdir(fd)){
             if(!((strcmp(entry->d_name,".")==0)||(strcmp(entry->d_name,"..")==0))){
-                strcpy(files[cnt].name,entry->d_name);
-                files[cnt].size=entry->d_type;
-                cnt++;
-            }
-        }
-        sort(files,cnt);
-        for(int i=0;i<cnt;i++){
-            printf("%s  ",files[i].name);
-        }
-        printf("\n");
-    }
-    else if((argc==2)&&(strcmp(argv[1],"-a")==0)){
-        while(entry=readdir(fd)){
-            if(entry->d_name[0]=='.'){
-                printf("%s  ",entry->d_name);
-            }
-        }
-        printf("\n");
-    }
-    else if((argc==2)&&(strcmp(argv[1],"-t")==0)){
-        while(entry=readdir(fd)){
-            if(!((strcmp(entry->d_name,".")==0)||(strcmp(entry->d_name,"..")==0))){
-                if(stat(entry->d_name,&st)==0){
-                    files[cnt].time=st.st_mtime;
+                if(entry->d_name[0]!='.'){
+                    strcpy(files[cnt].name,entry->d_name);
+                    files[cnt].size=entry->d_type;
                     cnt++;
                 }
             }
         }
-        sort_by_time(files,cnt);
+        sort(files,cnt);
         for(int i=0;i<cnt;i++){
             printf("%s  ",files[i].name);
         }

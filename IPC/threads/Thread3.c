@@ -10,15 +10,13 @@ void *f1(void *p){
 	sleep(20);
 	printf("thread1..exiting\n");
 	pthread_exit(&v1);
-
 }
 void *f2(void *p){
 	static int v2=8;
 	printf("in f2...%d\n",var);
 	sleep(15);
 	printf("thread2 exiting\n");
-	pthread_exit(&v2);
-	
+	pthread_exit(&v2);	
 }
 int main(){
 	printf("in main with pid=%d\n",getpid());
@@ -33,5 +31,4 @@ int main(){
 	printf("main  exitng\n");
 	pthread_exit(NULL);
 	return 0;
-
 }

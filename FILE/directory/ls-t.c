@@ -1,3 +1,4 @@
+//ls -t
 #include<stdio.h>
 #include<unistd.h>
 #include<sys/stat.h>
@@ -55,40 +56,11 @@ int main(int argc,char *argv[]){
         }
         printf("\n");
     }
-    else if((argc==2)&&(strcmp(argv[1],"-i")==0)){
-        while(entry=readdir(fd)){
-            if(!((strcmp(entry->d_name,".")==0)||(strcmp(entry->d_name,"..")==0))){
-                printf("%lu %s  ",entry->d_ino,entry->d_name);
-            }
-        }
-        printf("\n");
-    }
-    else if((argc==2)&&(strcmp(argv[1],"-S")==0)){
-        while(entry=readdir(fd)){
-            if(!((strcmp(entry->d_name,".")==0)||(strcmp(entry->d_name,"..")==0))){
-                strcpy(files[cnt].name,entry->d_name);
-                files[cnt].size=entry->d_type;
-                cnt++;
-            }
-        }
-        sort(files,cnt);
-        for(int i=0;i<cnt;i++){
-            printf("%s  ",files[i].name);
-        }
-        printf("\n");
-    }
-    else if((argc==2)&&(strcmp(argv[1],"-a")==0)){
-        while(entry=readdir(fd)){
-            if(entry->d_name[0]=='.'){
-                printf("%s  ",entry->d_name);
-            }
-        }
-        printf("\n");
-    }
     else if((argc==2)&&(strcmp(argv[1],"-t")==0)){
         while(entry=readdir(fd)){
             if(!((strcmp(entry->d_name,".")==0)||(strcmp(entry->d_name,"..")==0))){
                 if(stat(entry->d_name,&st)==0){
+                    strcpy(files[cnt].name,entry->d_name);
                     files[cnt].time=st.st_mtime;
                     cnt++;
                 }

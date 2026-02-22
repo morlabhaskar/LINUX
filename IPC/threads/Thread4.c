@@ -11,7 +11,6 @@ void *f1(void *p){
 	sleep(4);
 	printf("thread1..exiting\n");
 	pthread_exit(&v1);
-
 }
 void *f2(void *p){
 	static int v2=8;
@@ -19,7 +18,6 @@ void *f2(void *p){
 	sleep(3);
 	printf("thread2 exiting\n");
 	pthread_exit(&v2);
-	
 }
 int *ptr;
 int main(){
@@ -27,7 +25,6 @@ int main(){
 	pthread_create(&tid1,NULL,f1,NULL);
 	pthread_create(&tid2,NULL,f2,NULL);
 	//here two new threads(jobs) created. but execution by scheduler.
-	//
 	printf("two new jobs created...\n");
 	pthread_join(tid1,(void*)&ptr);
 	printf("main..collected exit val: %u\n",*ptr);
