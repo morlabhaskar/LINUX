@@ -33,5 +33,5 @@ int main(){
     }
     signal(SIGUSR1,handler);
     printf("Waiting for SIGUSR1 signal...\n");
-    pause();//wait for signal if 3rd terminal type $kill -SIGUSR1 PID
+    pause();//wait for signal, 3rd terminal type $kill -SIGUSR1 PID
 }
